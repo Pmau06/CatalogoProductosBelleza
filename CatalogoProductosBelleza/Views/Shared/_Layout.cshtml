@@ -1,0 +1,226 @@
+﻿
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - Catálogo de Productos de Belleza
+    </title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+          asp-append-version="true" />
+
+    <!-- Estilos del proyecto -->
+    <link rel="stylesheet"
+          href="~/css/site.css"
+          asp-append-version="true" />
+
+    <style>
+
+        /* CONFIGURACIÓN GENERAL */
+        html {
+            min-height: 100%;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff8fb;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        /* MENÚ SUPERIOR */
+        .navbar {
+            background-color: #f8d7e6 !important;
+            border-bottom: 2px solid #e9a5c5;
+            padding: 15px 20px;
+        }
+
+        .navbar-brand {
+            color: #793653 !important;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .navbar .nav-link {
+            color: #793653 !important;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .navbar .nav-link:hover {
+            color: #b53270 !important;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        main {
+            flex: 1;
+            padding-top: 25px;
+            padding-bottom: 30px;
+        }
+
+        /* BOTONES */
+        .btn-primary {
+            background-color: #c65b8c;
+            border-color: #c65b8c;
+        }
+
+        .btn-primary:hover {
+            background-color: #a93d70;
+            border-color: #a93d70;
+        }
+
+        /* PIE DE PÁGINA COMPACTO */
+        footer.footer-personalizado {
+            position: static !important;
+            bottom: auto !important;
+            width: 100%;
+            height: auto !important;
+            min-height: 0 !important;
+            line-height: normal !important;
+            margin: 0 !important;
+            padding: 12px 10px !important;
+            background-color: #f8d7e6;
+            border-top: 2px solid #e9a5c5;
+            text-align: center;
+            color: #793653;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        footer.footer-personalizado p {
+            margin: 3px 0;
+        }
+
+    </style>
+
+    @await RenderSectionAsync("Styles", required: false)
+
+</head>
+
+<body>
+
+    <!-- MENÚ DE NAVEGACIÓN -->
+    <header>
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand"
+                   asp-controller="Home"
+                   asp-action="Index">
+                    🌸 Catálogo de Belleza
+                </a>
+
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#menuPrincipal"
+                        aria-controls="menuPrincipal"
+                        aria-expanded="false"
+                        aria-label="Abrir menú">
+
+                    <span class="navbar-toggler-icon"></span>
+
+                </button>
+
+                <div class="collapse navbar-collapse"
+                     id="menuPrincipal">
+
+                    <ul class="navbar-nav ms-auto">
+
+                        <!-- INICIO -->
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               asp-controller="Home"
+                               asp-action="Index">
+                                Inicio
+                            </a>
+
+                        </li>
+
+                        <!-- CATÁLOGO -->
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               asp-controller="Productos"
+                               asp-action="Index">
+                                Ver Productos
+                            </a>
+
+                        </li>
+
+                        <!-- REGISTRAR PRODUCTO -->
+                        <li class="nav-item">
+
+                            <a class="nav-link"
+                               asp-controller="Productos"
+                               asp-action="Create">
+                                Registrar Producto
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- CONTENIDO DE CADA PÁGINA -->
+    <main role="main">
+
+        <div class="container">
+
+            @RenderBody()
+
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer-personalizado">
+
+        <div class="container">
+
+            <p>
+                © 2026 - Catálogo de Productos de Belleza
+            </p>
+
+            <p>
+                Desarrollado por Mauren Méndez
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="~/lib/jquery/dist/jquery.min.js"
+            asp-append-version="true"></script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+            asp-append-version="true"></script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

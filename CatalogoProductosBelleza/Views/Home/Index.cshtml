@@ -1,0 +1,167 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container py-4">
+
+    <!-- BIENVENIDA -->
+    <section class="text-center mb-5">
+        <h1 class="display-5 fw-bold"
+            style="color:#a52a60;">
+            🌸 Catálogo de Productos de Belleza
+        </h1>
+
+        <p class="lead mt-3">
+            Sistema web para la administración y
+            organización de productos de belleza.
+        </p>
+    </section>
+
+    <!-- PROPÓSITO DE LA APLICACIÓN -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+            <h2 style="color:#a52a60;">
+                ¿Cuál es el propósito de esta aplicación?
+            </h2>
+
+            <p>
+                El propósito de esta aplicación es facilitar
+                la administración de un catálogo de productos
+                de belleza mediante una plataforma web sencilla,
+                organizada y fácil de utilizar.
+            </p>
+
+            <p>
+                El sistema permite registrar, consultar,
+                modificar y eliminar información de productos
+                como maquillaje, cremas, perfumes y artículos
+                para el cuidado personal.
+            </p>
+
+            <p>
+                La información se almacena en una base de datos
+                SQL Server, permitiendo conservar los registros
+                y consultarlos cuando sea necesario.
+            </p>
+        </div>
+    </div>
+
+    <!-- OBJETIVO -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+            <h2 style="color:#a52a60;">
+                Objetivo de la aplicación
+            </h2>
+
+            <p>
+                Desarrollar un sistema web que permita gestionar
+                productos de belleza de manera eficiente,
+                facilitando el control de sus nombres,
+                categorías, marcas, precios, cantidades
+                disponibles y descripciones.
+            </p>
+        </div>
+    </div>
+
+    <!-- FUNCIONALIDADES -->
+    <h2 class="text-center mb-4"
+        style="color:#a52a60;">
+        Funcionalidades principales
+    </h2>
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h4>📝 Registrar productos</h4>
+                    <p>
+                        Permite ingresar nuevos productos
+                        con sus características y precios.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h4>📋 Consultar productos</h4>
+                    <p>
+                        Muestra los productos almacenados
+                        en la base de datos.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h4>✏️ Editar productos</h4>
+                    <p>
+                        Permite actualizar la información
+                        de los productos registrados.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-body">
+                    <h4>🗑️ Eliminar productos</h4>
+                    <p>
+                        Permite eliminar productos mediante
+                        una pantalla de confirmación.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TECNOLOGÍAS -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body p-4">
+            <h2 style="color:#a52a60;">
+                Tecnologías utilizadas
+            </h2>
+
+            <p>
+                Esta aplicación fue desarrollada utilizando
+                ASP.NET Core MVC y C# para la lógica del sistema,
+                HTML, CSS y Bootstrap para la interfaz,
+                Entity Framework Core para el acceso a datos
+                y SQL Server para el almacenamiento.
+            </p>
+        </div>
+    </div>
+
+    <!-- BOTONES DE NAVEGACIÓN -->
+    <div class="text-center mt-5">
+
+        <h3 style="color:#a52a60;">
+            ¡Comienza a utilizar nuestro catálogo!
+        </h3>
+
+        <p>
+            Consulta los productos disponibles
+            o registra uno nuevo.
+        </p>
+
+        <a asp-controller="Productos"
+           asp-action="Index"
+           class="btn btn-primary btn-lg m-2">
+            Ver Catálogo
+        </a>
+
+        <a asp-controller="Productos"
+           asp-action="Create"
+           class="btn btn-outline-secondary btn-lg m-2">
+            Registrar Producto
+        </a>
+
+    </div>
+
+</div>

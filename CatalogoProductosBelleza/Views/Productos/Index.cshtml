@@ -1,0 +1,476 @@
+﻿@model IEnumerable<CatalogoProductosBelleza.Models.Producto>
+
+@{
+    ViewData["Title"] = "Catálogo de Belleza";
+
+    // Recuperar el texto del buscador
+    string buscar = ViewBag.Buscar as string ?? "";
+}
+
+<!-- ESTILOS PERSONALIZADOS DEL CATÁLOGO -->
+<style>
+
+    /* TÍTULO PRINCIPAL */
+    .titulo-catalogo {
+        color: #a93d70;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    /* BOTÓN REGISTRAR PRODUCTO */
+    .btn-registrar {
+        background-color: #c65b8c;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 22px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-registrar:hover {
+            background-color: #a93d70;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+    /* TARJETA DEL BUSCADOR */
+    .tarjeta-buscador {
+        background-color: #fff3f8;
+        border: 1px solid #e9a5c5;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 25px;
+    }
+
+    .titulo-buscador {
+        color: #a93d70;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    /* CAMPO DE BÚSQUEDA */
+    .campo-busqueda {
+        border: 1px solid #e9a5c5;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+        .campo-busqueda:focus {
+            border-color: #c65b8c;
+            box-shadow: 0 0 0 0.2rem rgba(198,91,140,0.2);
+        }
+
+    /* BOTÓN BUSCAR */
+    .btn-buscar {
+        background-color: #c65b8c;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 9px 18px;
+        font-weight: 600;
+    }
+
+        .btn-buscar:hover {
+            background-color: #a93d70;
+            color: white;
+        }
+
+    /* BOTÓN LIMPIAR */
+    .btn-limpiar {
+        background-color: #eeeeee;
+        color: #555;
+        border: 1px solid #cccccc;
+        border-radius: 20px;
+        padding: 9px 18px;
+        font-weight: 600;
+    }
+
+        .btn-limpiar:hover {
+            background-color: #dddddd;
+            color: #333;
+        }
+
+    /* ENCABEZADO DE LA TABLA */
+    .tabla-productos thead th {
+        background-color: #f8d7e6;
+        color: #793653;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle;
+        padding: 12px;
+    }
+
+    /* CONTENIDO DE LA TABLA */
+    .tabla-productos tbody td {
+        vertical-align: middle;
+        padding: 10px;
+    }
+
+    /* BOTÓN EDITAR: MORADO PASTEL */
+    .btn-editar {
+        background-color: #b58bd5;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+        .btn-editar:hover {
+            background-color: #9564bc;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+    /* BOTÓN ELIMINAR: ROSA PASTEL */
+    .btn-eliminar {
+        background-color: #e58ca6;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+        .btn-eliminar:hover {
+            background-color: #ce607f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+    /* CONTENEDOR DE BOTONES */
+    .acciones-producto {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* MENSAJE DEL TOTAL */
+    .mensaje-total {
+        background-color: #fce7f0;
+        border: 1px solid #e9a5c5;
+        border-radius: 10px;
+        color: #793653;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+</style>
+
+<div class="container mt-4 mb-5">
+
+    <!-- TÍTULO PRINCIPAL -->
+    <h1 class="titulo-catalogo">
+        🌸 Catálogo de Productos de Belleza
+    </h1>
+
+    <!-- MENSAJE DE BIENVENIDA -->
+    <p class="text-center mb-4">
+        Bienvenidos a nuestro catálogo de productos.
+    </p>
+
+    <!-- BOTÓN REGISTRAR NUEVO PRODUCTO -->
+    <div class="text-center mb-4">
+
+        <a asp-controller="Productos"
+           asp-action="Create"
+           class="btn btn-registrar">
+
+            + Registrar Nuevo Producto
+
+        </a>
+
+    </div>
+
+    <!-- RESUMEN GENERAL DEL INVENTARIO -->
+    <div class="mb-4">
+
+        <h3 class="text-center mb-4"
+            style="color: #a93d70;">
+            🌸 Resumen del Inventario
+        </h3>
+
+        <div class="row g-3">
+
+            <!-- TOTAL DE PRODUCTOS -->
+            <div class="col-md-4">
+
+                <div class="card h-100 text-center shadow-sm"
+                     style="background-color: #fce7f0;
+                    border: 1px solid #e9a5c5;
+                    border-radius: 15px;">
+
+                    <div class="card-body">
+
+                        <h5 style="color: #793653;">
+                            Productos registrados
+                        </h5>
+
+                        <h2 style="color: #a93d70;">
+                            @ViewBag.TotalProductos
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- TOTAL DE UNIDADES -->
+            <div class="col-md-4">
+
+                <div class="card h-100 text-center shadow-sm"
+                     style="background-color: #f0e4fa;
+                    border: 1px solid #d4b3e8;
+                    border-radius: 15px;">
+
+                    <div class="card-body">
+
+                        <h5 style="color: #68418d;">
+                            Unidades disponibles
+                        </h5>
+
+                        <h2 style="color: #8050aa;">
+                            @ViewBag.TotalUnidades
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- VALOR TOTAL DEL INVENTARIO -->
+            <div class="col-md-4">
+
+                <div class="card h-100 text-center shadow-sm"
+                     style="background-color: #fcebdc;
+                    border: 1px solid #e8c4a3;
+                    border-radius: 15px;">
+
+                    <div class="card-body">
+
+                        <h5 style="color: #86502d;">
+                            Valor del inventario
+                        </h5>
+
+                        <h2 style="color: #9a633b;">
+                            ₡@(((decimal)ViewBag.ValorInventario).ToString("N2"))
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BUSCADOR DE PRODUCTOS -->
+    <div class="tarjeta-buscador shadow-sm">
+
+        <h5 class="titulo-buscador">
+            🔍 Buscar Productos
+        </h5>
+
+        <form asp-controller="Productos"
+              asp-action="Index"
+              method="get">
+
+            <div class="row g-2">
+
+                <!-- CAMPO DE BÚSQUEDA -->
+                <div class="col-md-8">
+
+                    <input type="text"
+                           name="buscar"
+                           value="@buscar"
+                           class="form-control campo-busqueda"
+                           placeholder="Buscar por nombre, categoría o marca..." />
+
+                </div>
+
+                <!-- BOTONES DEL BUSCADOR -->
+                <div class="col-md-4 d-flex flex-wrap gap-2">
+
+                    <button type="submit"
+                            class="btn btn-buscar flex-fill">
+
+                        Buscar
+
+                    </button>
+
+                    <a asp-controller="Productos"
+                       asp-action="Index"
+                       class="btn btn-limpiar flex-fill">
+
+                        Limpiar
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- TOTAL DE PRODUCTOS -->
+    <div class="mensaje-total">
+
+        @if (string.IsNullOrWhiteSpace(buscar))
+        {
+            <span>
+                Total de productos registrados:
+                <strong>@Model.Count()</strong>
+            </span>
+        }
+        else
+        {
+            <span>
+                Productos encontrados:
+                <strong>@Model.Count()</strong>
+            </span>
+
+            <div class="mt-2">
+                Búsqueda realizada:
+                <strong>@buscar</strong>
+            </div>
+        }
+
+    </div>
+
+    <!-- TABLA DE PRODUCTOS -->
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-striped table-hover tabla-productos">
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Marca</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var producto in Model)
+                    {
+                        <tr>
+
+                            <!-- ID ORIGINAL DE SQL SERVER -->
+                            <td>@producto.Id</td>
+
+                            <!-- NOMBRE -->
+                            <td>@producto.Nombre</td>
+
+                            <!-- CATEGORÍA -->
+                            <td>@producto.Categoria</td>
+
+                            <!-- MARCA -->
+                            <td>@producto.Marca</td>
+
+                            <!-- PRECIO -->
+                            <td>
+                                ₡@producto.Precio.ToString("N2")
+                            </td>
+
+                            <!-- CANTIDAD -->
+                            <td>@producto.Cantidad</td>
+
+                            <!-- DESCRIPCIÓN -->
+                            <td>@producto.Descripcion</td>
+
+                            <!-- ACCIONES -->
+                            <td>
+
+                                <div class="acciones-producto">
+
+                                    <!-- BOTÓN EDITAR -->
+                                    <a asp-controller="Productos"
+                                       asp-action="Edit"
+                                       asp-route-id="@producto.Id"
+                                       class="btn btn-editar">
+
+                                        ✏️ Editar
+
+                                    </a>
+
+                                    <!-- BOTÓN ELIMINAR -->
+                                    <a asp-controller="Productos"
+                                       asp-action="Delete"
+                                       asp-route-id="@producto.Id"
+                                       class="btn btn-eliminar">
+
+                                        🗑️ Eliminar
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <!-- MENSAJE CUANDO NO HAY RESULTADOS -->
+        <div class="alert alert-warning text-center">
+
+            @if (!string.IsNullOrWhiteSpace(buscar))
+            {
+                <h5>No se encontraron productos</h5>
+
+                <p class="mb-0">
+                    No hay productos que coincidan con:
+                    <strong>@buscar</strong>
+                </p>
+            }
+            else
+            {
+                <h5>No hay productos registrados</h5>
+
+                <p class="mb-0">
+                    Registra tu primer producto para
+                    comenzar a utilizar el catálogo.
+                </p>
+            }
+
+        </div>
+    }
+
+</div>
